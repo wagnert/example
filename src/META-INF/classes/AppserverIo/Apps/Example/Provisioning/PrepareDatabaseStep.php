@@ -73,6 +73,7 @@ class PrepareDatabaseStep extends AbstractStep
                 $schemaProcessor->createSchema();
                 $schemaProcessor->createDefaultProducts();
                 $schemaProcessor->createDefaultCredentials();
+                $schemaProcessor->createDefaultCategories();
 
                 // log a message that provisioning has been successfull
                 $this->getApplication()->getInitialContext()->getSystemLogger()->info(

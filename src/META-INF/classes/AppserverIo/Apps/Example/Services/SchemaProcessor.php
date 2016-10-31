@@ -27,6 +27,7 @@ use Doctrine\DBAL\Schema\SqliteSchemaManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppserverIo\Collections\ArrayList;
 use AppserverIo\Apps\Example\Entities\Impl\Product;
+use AppserverIo\Apps\Example\Entities\Impl\Category;
 
 /**
  * A singleton session bean implementation that handles the
@@ -270,6 +271,44 @@ class SchemaProcessor extends AbstractPersistenceProcessor implements SchemaProc
         }
 
         // flush the entity manager
+        $entityManager->flush();
+    }
+
+    /**
+     * Creates some default categories.
+     *
+     * @return void
+     */
+    public function createDefaultCategories()
+    {
+
+        // load the entity manager
+        $entityManager = $this->getEntityManager();
+
+        // create the hardware category
+        $hardware = new Category();
+        $hardware->setTitle('Hardware');
+
+        // create a category for monitors
+        $monitors = new Category();
+        $monitors->setTitle('Monitors');
+        $monitors->setParent($hardware);
+
+        // create a sub-category for LCD displays
+        $lcds = new Category();
+        $lcds->setTitle('LCD');
+        $lcds->setParent($monitors);
+
+        // create a category for keyboards
+        $keyboards = new Category();
+        $keyboards->setTitle('Keyboards');
+        $keyboards->setParent($hardware);
+
+        // persist the categories
+        $entityManager->persist($hardware);
+        $entityManager->persist($monitors);
+        $entityManager->persist($keyboards);
+        $entityManager->persist($lcds);
         $entityManager->flush();
     }
 }
