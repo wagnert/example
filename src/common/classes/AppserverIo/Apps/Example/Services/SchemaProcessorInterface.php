@@ -54,5 +54,12 @@ interface SchemaProcessorInterface
      *
      * @return void
      */
-    public function createDefaultProducts();
+    public function createDefaultProducts();;
+
+    /**
+     * Creates some default categories.
+     *
+     * @return void
+     */
+    public function createDefaultCategories();
 }
